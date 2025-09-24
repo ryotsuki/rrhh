@@ -8,6 +8,7 @@
     $nombre_usuario = trim($_SESSION["user_first_name"].' '.$_SESSION['user_last_name']);
     $correo_usuario = $_SESSION['user_email_address'];
     $id_usuario = $_SESSION['id_usuario'];
+    $cedula = $_SESSION['cedula_usuario'];
 
     $texto1 = "";
     $texto2 = "";
@@ -15,10 +16,12 @@
     if($_SESSION['cargo'] == 5 || $_SESSION['cargo'] == 8){
         $texto1 = "Listado de permisos";
         $texto2 = "Listado de vacaciones";
+        $texto3 = "Listado de certificados";
     }
     else{
         $texto1 = "Mis permisos";
         $texto2 = "Mis vacaciones";
+        $texto2 = "Mis certificados";
     }
 ?>
 
@@ -37,7 +40,7 @@
     <script src="//cdnjs.cloudflare.com/ajax/libs/raphael/2.1.0/raphael-min.js"></script>
     <script src="//cdnjs.cloudflare.com/ajax/libs/morris.js/0.5.1/morris.min.js"></script>
 
-    <title>Semper - Permisos y vacaciones</title>
+    <title>Semper - Formatos de Talento Humano</title>
 
     <script>
         window.on_page_functions = [];
@@ -149,6 +152,32 @@
                         <a href="#reporte_vacaciones?<?php echo $id_usuario?>">
                             <span class="icon"><span class="mif-list"></span></span>
                             <span class="caption"><?php echo $texto2;?></span>
+                        </a>
+                    </li>
+                </ul>
+            </li>
+            <li>
+                <a href="#rolesdepago">
+                    <span class="icon"><span class="mif-dollar2"></span></span>
+                    <span class="caption">Roles de pago</span>
+                </a>
+            </li>
+            <li>
+                <a href="#" class="dropdown-toggle" id="dd_vacaciones">
+                    <span class="icon"><span class="mif-libreoffice"></span></span>
+                    <span class="caption">Certificados laborales</span>
+                </a>
+                <ul class="navview-menu" data-role="dropdown">
+                    <li>
+                        <a href="#certificado">
+                            <span class="icon"><span class="mif-plus"></span></span>
+                            <span class="caption">Solicitar</span>
+                        </a>
+                    </li>
+                    <li>
+                        <a href="#reporte_certificados?<?php echo $id_usuario?>">
+                            <span class="icon"><span class="mif-list"></span></span>
+                            <span class="caption"><?php echo $texto3;?></span>
                         </a>
                     </li>
                 </ul>

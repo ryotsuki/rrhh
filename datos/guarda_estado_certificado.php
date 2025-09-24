@@ -15,7 +15,7 @@ session_start();
 $conn = conectate();
 
 $id_usuario			= $_POST['id_usuario'];
-$id_permiso			= $_POST['id_permiso'];
+$id_certificado			= $_POST['id_certificado'];
 $id_estado          = $_POST['id_estado'];
 $solicitud          = "";
 
@@ -29,13 +29,13 @@ if($id_estado==4){
     $solicitud = "DENEGADA";
 }
 
-$query = "UPDATE permiso SET id_usuario_aprobador = $id_usuario, fecha_cambio_estado = now(), id_estado_solicitud = $id_estado WHERE id_permiso = $id_permiso";
+$query = "UPDATE certificado SET id_usuario_aprobador = $id_usuario, fecha_cambio_estado = now(), id_estado_solicitud = $id_estado WHERE id_certificado = $id_certificado";
 $res = $conn->query($query);
 
 //echo $query;
 //echo $id_permiso;
 
-$usuario = "SELECT * FROM usuario WHERE id_usuario = (SELECT id_usuario FROM permiso WHERE id_permiso = $id_permiso)";
+$usuario = "SELECT * FROM usuario WHERE id_usuario = (SELECT id_usuario FROM certificado WHERE id_certificado = $id_certificado)";
 $res2 = $conn->query($usuario);
 while($row=mysqli_fetch_array($res2)) {
     $nombre = $row["nombre_usuario"];
@@ -66,7 +66,7 @@ if ($res){
 
     $html = '
     <div>
-    Estimado '.$nombre.', tu solicitud de permiso numero '.$id_permiso.' se encuentra '.$solicitud.'
+    Estimado '.$nombre.', tu certificado laboral numero '.$id_certificado.' se encuentra '.$solicitud.'
     <br>Por favor, no responda. Este es un correo automatico.
 
     <br><br>
@@ -74,7 +74,7 @@ if ($res){
     </div>
     ';
 
-    $mail->Subject = 'Solicitud de permiso actualizada';
+    $mail->Subject = 'Solicitud de certificado laboral actualizada';
     $mail->Body    = $html;
     $mail->AltBody = 'This is the body in plain text for non-HTML mail clients';
 

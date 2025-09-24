@@ -2,9 +2,9 @@
 
 function conectate()
 {
-	$servername = "localhost";
+	$servername = "127.0.0.1";
 	$username = "root";
-	$password = "aburame22";
+	$password = "Semper2025";
 	$database = "rrhh";
 
 	// Create connection

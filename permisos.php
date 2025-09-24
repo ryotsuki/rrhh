@@ -115,6 +115,7 @@
                             <option value="5">MATERNIDAD O PATERNIDAD</option>
                             <option value="6">ESTUDIOS O VIAJE</option>
                             <option value="7">ENFERMEDAD</option>
+                            <option value="9">CRUCE DE HORAS</option>
                         </optgroup>
                         <option value="8">OTRO</option>
                     </select>

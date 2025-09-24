@@ -5,12 +5,14 @@ include("../conexion/conexion.php");
 session_start();
 $conn = conectate();
 require('../fpdf/fpdf.php');
-$firma2 = "../images/firmas/firma_andrea.jpg";
 
-$id_permiso = $_GET["id_permiso"];
-$firma = "";
+$cedula = $_GET["cedula"];
+$fecha = $_GET["fecha"];
+$fecha2 = explode('-',$fecha);
+$anio = $fecha2[1];
+$mes = $fecha2[0];
 
-$sql = "SELECT * FROM v_permiso WHERE id_permiso = $id_permiso";
+$sql = "SELECT * FROM nomina WHERE cedula = '$cedula' AND YEAR(fecha) = $anio AND MONTH(fecha) = $mes AND cuenta = '999LIQUIDO A RECIBIR'";
 $res = $conn->query($sql);
 $numero_filas = mysqli_num_rows($res);
 	
@@ -18,43 +20,46 @@ $numero_filas = mysqli_num_rows($res);
 	
 		while($row=mysqli_fetch_array($res)) {
             //$usuario = $row["id_permiso"];
-            $usuario = $row["nombre_usuario"];
-            $cedula = $row["cedula_usuario"];
-            $correo = $row["correo_usuario"];
-            $cargo = $row["descripcion_cargo"];
-            $ubicacion = $row["descripcion_ubicacion"];
-            $estado = $row["descripcion_estado_solicitud"];
-            $aprobador = $row["usuario_aprobador"];
-            $fecha_solicitud = $row["fecha_solicitud"];
-            $inicio = $row["hora_inicio"];
-            $fin = $row["hora_fin"];
-            $tiempo = $row["total_tiempo"];
-            $observaciones = utf8_decode($row["observaciones"]);
-            $fecha_registro = $row["fecha_registro"];
-            $tipo = $row["tipo_permiso"];
-            $firma = $row["firma_aprobador"];
+            $nombre = $row["nombre"];
+            //$titulo = 
         }
     }
 
 $cuerpo= "
-<b>Persona que solicita:</b> <i>$usuario</i><br><br>
-<b>Identificacion:</b> <i>$cedula</i><br><br>
-<b>Cargo:</b> <i>$cargo</i><br><br>
-<b>Ubicacion:</b> <i>$ubicacion</i><br><br>
-<b>Fecha de permiso:</b> <i>$fecha_solicitud</i><br><br>
-<b>Desde:</b> <i>$inicio</i><br><br>
-<b>Hasta:</b> <i>$fin</i><br><br>
-<b>Tiempo total:</b> <i>$tiempo horas</i><br><br>
-<b>Tipo de permiso:</b> <i>$tipo</i><br><br>
-<b>Observaciones:</b> <i>$observaciones</i><br><br>
+<b>Nombre del trabajador:</b> <i>$nombre</i><br><br>
+<b>Identificacion del trabajador:</b> <i>$cedula</i><br><br>
+<b>Fecha:</b> <i>$fecha</i><br><br>
 
-<br><br>
-La fecha de elaboracion es el: <b><u>$fecha_registro</u></b>.<br>
-El estado de la solicitud es: <b><u>$estado</u></b>.<br><br><br>
-Solicitud aprobada/denegada por: <b><u>$aprobador</u></b>.<br>
 <hr>
 <br><br>
+
+<div style='text-align:center;'>
+    <table style='text-align:center;' border='1'>
+        <tr>
+            <th>INGRESOS</th>
+            <th>DEDUCCIONES</th>
+        </tr>
 ";
+
+$sql2 = "SELECT * FROM nomina WHERE cedula = '$cedula' AND YEAR(fecha) = $anio AND MONTH(fecha) = $mes";
+$res2 = $conn->query($sql2);
+$numero_filas2 = mysqli_num_rows($res2);
+	
+	if($numero_filas2){
+	
+		while($row2=mysqli_fetch_array($res2)) {
+            $cuenta = $row2["cuenta"];
+            $valor = $row2["valor"];
+
+            $cuerpo.="
+                <tr>
+                    <td>".$cuenta.": ".$valor."</td>
+                </tr>
+                </table>
+                </div>
+            ";
+        }
+    }
 
 /*
 La presente solicitud es presentada por <b><u>$usuario</u></b>, con cedula de identidad Numero <b><u>$cedula</u></b>, con cargo <b><u>$cargo</u></b> perteneciente a <b><u>$ubicacion</u></b>, 
@@ -164,7 +169,7 @@ function Header()
     // Movernos a la derecha
     $this->Cell(80);
     // Título
-    $this->Cell(30,10,'Solicitud de Permiso','C');
+    $this->Cell(30,10,'                           Rol de Pago','C');
     // Salto de línea
     $this->Ln(20);
 }
@@ -172,28 +177,20 @@ function Header()
 // Pie de página
 function Footer()
 {
-    global $firma;
-    //$firma3 = '../images/firmas/firma_andrea.jpg';
-    $firma = $firma;
     // Posición: a 1,5 cm del final
     $this->SetY(-15);
     // Arial italic 8
     $this->SetFont('Arial','I',8);
     // Número de página
-    $this->Cell(0,10,'Pagina '.$this->PageNo().'/{nb}',0,0,'C');
-    //$this->Image('../images/firmas/firma_andrea.jpg',60,180,50,50);
-    if($firma){
-        $this->Image($firma,60,180,50,50);
-    }
-    
+    $this->Cell(0,10,'Page '.$this->PageNo().'/{nb}',0,0,'C');
 }
 }
 
 // Creación del objeto de la clase heredada
 $pdf = new PDF();
 $pdf->AliasNbPages();
-$pdf->SetTitle('Permiso numero '.$id_permiso.' - '.$usuario);
-$pdf->AddPage();
+$pdf->SetTitle('Rol de pago '.$cedula.' - '.$fecha);
+$pdf->AddPage('0');
 $pdf->SetFont('Times','',12);
 $pdf->WriteHTML($cuerpo);
 $pdf->Output();

@@ -7,17 +7,17 @@ $conn = conectate();
 require('../fpdf/fpdf.php');
 $firma2 = "../images/firmas/firma_andrea.jpg";
 
-$id_permiso = $_GET["id_permiso"];
+$id_certificado = $_GET["id_certificado"];
 $firma = "";
 
-$sql = "SELECT * FROM v_permiso WHERE id_permiso = $id_permiso";
+$sql = "SELECT * FROM v_certificado WHERE id_certificado = $id_certificado";
 $res = $conn->query($sql);
 $numero_filas = mysqli_num_rows($res);
 	
 	if($numero_filas){
 	
 		while($row=mysqli_fetch_array($res)) {
-            //$usuario = $row["id_permiso"];
+            //$usuario = $row["id_certificado"];
             $usuario = $row["nombre_usuario"];
             $cedula = $row["cedula_usuario"];
             $correo = $row["correo_usuario"];
@@ -25,35 +25,32 @@ $numero_filas = mysqli_num_rows($res);
             $ubicacion = $row["descripcion_ubicacion"];
             $estado = $row["descripcion_estado_solicitud"];
             $aprobador = $row["usuario_aprobador"];
-            $fecha_solicitud = $row["fecha_solicitud"];
-            $inicio = $row["hora_inicio"];
-            $fin = $row["hora_fin"];
-            $tiempo = $row["total_tiempo"];
-            $observaciones = utf8_decode($row["observaciones"]);
+            $fecha_solicitud = $row["fecha_registro"];
+            $motivo = utf8_decode($row["motivo_certificado"]);
             $fecha_registro = $row["fecha_registro"];
-            $tipo = $row["tipo_permiso"];
             $firma = $row["firma_aprobador"];
+            $sueldo = $row["sueldo"];
+            $fecha_ingreso = $row["fecha_ingreso"];
+            $cargo_aprobador = $row["cargo_firma"];
         }
     }
 
 $cuerpo= "
-<b>Persona que solicita:</b> <i>$usuario</i><br><br>
-<b>Identificacion:</b> <i>$cedula</i><br><br>
-<b>Cargo:</b> <i>$cargo</i><br><br>
-<b>Ubicacion:</b> <i>$ubicacion</i><br><br>
-<b>Fecha de permiso:</b> <i>$fecha_solicitud</i><br><br>
-<b>Desde:</b> <i>$inicio</i><br><br>
-<b>Hasta:</b> <i>$fin</i><br><br>
-<b>Tiempo total:</b> <i>$tiempo horas</i><br><br>
-<b>Tipo de permiso:</b> <i>$tipo</i><br><br>
-<b>Observaciones:</b> <i>$observaciones</i><br><br>
-
-<br><br>
-La fecha de elaboracion es el: <b><u>$fecha_registro</u></b>.<br>
-El estado de la solicitud es: <b><u>$estado</u></b>.<br><br><br>
-Solicitud aprobada/denegada por: <b><u>$aprobador</u></b>.<br>
+                                                                                                                         <p align='right'>Quito-Ecuador, $fecha_solicitud</p><br><br>
+                                                                         <b><p align='center'>CERTIFICADO</p><br><br></b>
+<div style='text-align:left'>A quien corresponda,</div><br><br><br><br>
+     Certifico que el/la Sr(a). $usuario con CI: $cedula ,trabaja en la
+empresa SEMPER DE ECUADOR S.A desde el $fecha_ingreso como
+$cargo, con un ingreso promedio mensual de $ $sueldo.<br><br>
+     Es todo lo que puedo confirmar en honor a la verdad, el mencionado puede hacer
+uso del presente certificado en la forma que a bien tuviere.
 <hr>
-<br><br>
+<br><br><br><br><br><br>
+
+                                                                        Atentamente,<br><br><br><br><br><br><br>
+                                                                  <b>$aprobador</b><br><br>
+                                                           <b>$cargo_aprobador</b><br><br>
+                                                        <b>SEMPER DE ECUADOR S.A.</b>
 ";
 
 /*
@@ -74,6 +71,7 @@ class PDF extends FPDF
     protected $I = 0;
     protected $U = 0;
     protected $HREF = '';
+    protected $ALIGN='';
 
     function WriteHTML($html)
     {
@@ -87,6 +85,8 @@ class PDF extends FPDF
                 // Text
                 if($this->HREF)
                     $this->PutLink($this->HREF,$e);
+                elseif($this->ALIGN=='center')
+                    $this->Cell(0,5,$e,0,1,'C');
                 else
                     $this->Write(5,$e);
             }
@@ -130,6 +130,8 @@ class PDF extends FPDF
             $this->SetStyle($tag,false);
         if($tag=='A')
             $this->HREF = '';
+        if($tag=='P')
+            $this->ALIGN='';
     }
 
     function SetStyle($tag, $enable)
@@ -161,10 +163,11 @@ function Header()
     $this->Image('../images/logos/crocs_logo.png',10,8,33);
     // Arial bold 15
     $this->SetFont('Arial','B',15);
+    $this->SetTextColor(0, 139, 139);
     // Movernos a la derecha
     $this->Cell(80);
     // Título
-    $this->Cell(30,10,'Solicitud de Permiso','C');
+    $this->Cell(30,10,'Semper de Ecuador','C');
     // Salto de línea
     $this->Ln(20);
 }
@@ -179,11 +182,12 @@ function Footer()
     $this->SetY(-15);
     // Arial italic 8
     $this->SetFont('Arial','I',8);
+    $this->SetTextColor(0, 139, 139);
     // Número de página
-    $this->Cell(0,10,'Pagina '.$this->PageNo().'/{nb}',0,0,'C');
+    $this->Cell(0,10,'Direccion: Av.6 de diciembre y Paul Rivet . Edificio Josuet piso 5. Telefonos: 023238405',0,0,'C');
     //$this->Image('../images/firmas/firma_andrea.jpg',60,180,50,50);
     if($firma){
-        $this->Image($firma,60,180,50,50);
+        $this->Image($firma,60,130,70,30);
     }
     
 }
@@ -192,7 +196,7 @@ function Footer()
 // Creación del objeto de la clase heredada
 $pdf = new PDF();
 $pdf->AliasNbPages();
-$pdf->SetTitle('Permiso numero '.$id_permiso.' - '.$usuario);
+$pdf->SetTitle('Certificado numero '.$id_certificado.' - '.$usuario);
 $pdf->AddPage();
 $pdf->SetFont('Times','',12);
 $pdf->WriteHTML($cuerpo);

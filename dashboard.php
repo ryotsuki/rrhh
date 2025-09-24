@@ -25,6 +25,7 @@
     include("datos/buscar_usuarios.php");
     include("datos/buscar_permisos.php");
     include("datos/buscar_vacaciones.php");
+    include("datos/buscar_certificados.php");
     //----------------------
 
     //VENTAS DE 2 AÑO ANTERIOR - MES ANTERIOR - DIA ANTERIOR
@@ -172,18 +173,18 @@
                             <a href="#" class="more"> Más info <span class="mif-arrow-right"></span></a>
                         </div>
                     </div>
-                    <!--<div class="cell-lg-3 cell-md-6 mt-2">
+                    <div class="cell-lg-3 cell-md-6 mt-2">
                         <div class="more-info-box bg-red fg-white">
                             <div class="content">
-                            <h2 class="text-bold mb-0"><?php echo $venta_dia_anterior;?></h2>
-                                <div><?php echo $date_future;?> (Ayer)</div>
+                            <h2 class="text-bold mb-0"><?php echo $cantidad_certificados;?></h2>
+                                <div>Certificados pendientes</div>
                             </div>
                             <div class="icon">
-                                <span class="mif-dollar2"></span>
+                                <span class="mif-libreoffice"></span>
                             </div>
                             <a href="#" class="more"> Más info <span class="mif-arrow-right"></span></a>
                         </div>
-                    </div>-->
+                    </div>
                 </div>
                 </div>
                 </div>
