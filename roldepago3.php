@@ -7,6 +7,8 @@ $conn = conectate();
 //require('../fpdf/fpdf.php');
 //require('mysql_table.php');
 
+$firma = "images/firmas/firma_andrea.jpg";
+
 $cedula = $_GET["cedula"];
 $fecha = $_GET["fecha"];
 $fecha2 = explode('-',$fecha);
@@ -124,7 +126,7 @@ $filas_egresos = mysqli_num_rows($res_egresos);
                 }
             ?>
             <hr>
-            <strong>Total descuentos: <?php echo number_format($total_ingresos,2,',','.')?></strong>
+            <strong>Total descuentos: <?php echo number_format($total_egresos,2,',','.')?></strong>
         </div>
     </div></div>
     <div class="cell-6" style="text-align:center"><div>
@@ -139,19 +141,19 @@ $filas_egresos = mysqli_num_rows($res_egresos);
 <div class="row">
     <div class="cell-3" style="text-align:center"><div>
         <div>
-            <hr>
+            <img src="<?php echo $firma; ?>" width="150" height="100"/>
         </div>
         <div class="header bg-white fg-black">ELABORADO</div>
     </div></div>
     <div class="cell-3" style="text-align:center"><div>
         <div>
-            <hr>
+            <img src="<?php echo $firma; ?>" width="150" height="100"/>
         </div>
         <div class="header bg-white fg-black">AUTORIZADO</div>
     </div></div>
     <div class="cell-6" style="text-align:center"><div>
         <div>
-            <hr>
+            <img src="images/firmas/blankspace.png" width="150" height="100"/>
         </div>
         <div class="header bg-white fg-black">RECIBO CONFORME</div>
         <div>

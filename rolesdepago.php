@@ -10,12 +10,12 @@
     $conn = conectate();
 
     $consulta = "SELECT id_cargo FROM usuario WHERE cedula_usuario = '$cedula'";
-    $res2 = $conn->query($consulta);
+    $res2 = $conn->query($consulta); 
     while($row=mysqli_fetch_array($res2)) {
         $id_cargo = $row["id_cargo"];
     }
 
-    if($id_cargo == 8 || $id_cargo == 5){
+    if($id_cargo == 8 || $id_cargo == 5 || $_SESSION['cargo'] == 6){
         $sql="SELECT DISTINCT cedula, DATE_FORMAT(fecha, '%m-%Y') AS fecha, nombre, SUM(valor) AS total FROM nomina WHERE cuenta = '999LIQUIDO A RECIBIR' AND YEAR(fecha) = 2025 GROUP BY cedula, fecha, nombre";
     }
     else{

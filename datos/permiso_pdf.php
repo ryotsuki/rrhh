@@ -169,7 +169,7 @@ function Header()
     $this->Ln(20);
 }
 
-// Pie de página
+// Pie de página 
 function Footer()
 {
     global $firma;
@@ -183,7 +183,7 @@ function Footer()
     $this->Cell(0,10,'Pagina '.$this->PageNo().'/{nb}',0,0,'C');
     //$this->Image('../images/firmas/firma_andrea.jpg',60,180,50,50);
     if($firma){
-        $this->Image($firma,60,180,50,50);
+        $this->Image($firma,70,180,70,30);
     }
     
 }

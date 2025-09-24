@@ -13,7 +13,7 @@
     $texto1 = "";
     $texto2 = "";
 
-    if($_SESSION['cargo'] == 5 || $_SESSION['cargo'] == 8){
+    if($_SESSION['cargo'] == 5 || $_SESSION['cargo'] == 8 || $_SESSION['cargo'] == 6){
         $texto1 = "Listado de permisos";
         $texto2 = "Listado de vacaciones";
         $texto3 = "Listado de certificados";
@@ -108,7 +108,7 @@
 
         <ul class="navview-menu mt-4" id="side-menu">
             <li class="item-header">MENU PRINCIPAL</li>
-            <?php if($_SESSION['cargo'] == 5 || $_SESSION['cargo'] == 8){ ?>
+            <?php if($_SESSION['cargo'] == 5 || $_SESSION['cargo'] == 8 || $_SESSION['cargo'] == 6){ ?>
             <li>
                 <a href="#dashboard">
                     <span class="icon"><span class="mif-meter"></span></span>
@@ -182,7 +182,7 @@
                     </li>
                 </ul>
             </li>
-            <?php if($_SESSION['cargo'] == 5 || $_SESSION['cargo'] == 8){ ?>
+            <?php if($_SESSION['cargo'] == 5 || $_SESSION['cargo'] == 8 || $_SESSION['cargo'] == 6){ ?>
             <li>
                 <a href="#configuraciones">
                     <span class="icon"><span class="mif-tools"></span></span>
