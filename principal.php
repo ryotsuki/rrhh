@@ -12,6 +12,7 @@
 
     $texto1 = "";
     $texto2 = "";
+    $texto3 = "";
 
     if($_SESSION['cargo'] == 5 || $_SESSION['cargo'] == 8 || $_SESSION['cargo'] == 6){
         $texto1 = "Listado de permisos";
@@ -21,7 +22,7 @@
     else{
         $texto1 = "Mis permisos";
         $texto2 = "Mis vacaciones";
-        $texto2 = "Mis certificados";
+        $texto3 = "Mis certificados";
     }
 ?>
 
@@ -129,14 +130,14 @@
                         </a>
                     </li>
                     <li>
-                        <a href="#reporte_permisos?<?php echo $id_usuario?>">
+                        <a href="#reporte_permisos">
                             <span class="icon"><span class="mif-list"></span></span>
                             <span class="caption"><?php echo $texto1;?></span>
                         </a>
                     </li>
                 </ul>
             </li>
-            <li>
+            <!--<li>
                 <a href="#" class="dropdown-toggle" id="dd_vacaciones">
                     <span class="icon"><span class="mif-airplane"></span></span>
                     <span class="caption">Vacaciones</span>
@@ -149,13 +150,13 @@
                         </a>
                     </li>
                     <li>
-                        <a href="#reporte_vacaciones?<?php echo $id_usuario?>">
+                        <a href="#reporte_vacaciones">
                             <span class="icon"><span class="mif-list"></span></span>
                             <span class="caption"><?php echo $texto2;?></span>
                         </a>
                     </li>
                 </ul>
-            </li>
+            </li>-->
             <li>
                 <a href="#rolesdepago">
                     <span class="icon"><span class="mif-dollar2"></span></span>
@@ -175,7 +176,7 @@
                         </a>
                     </li>
                     <li>
-                        <a href="#reporte_certificados?<?php echo $id_usuario?>">
+                        <a href="#reporte_certificados">
                             <span class="icon"><span class="mif-list"></span></span>
                             <span class="caption"><?php echo $texto3;?></span>
                         </a>

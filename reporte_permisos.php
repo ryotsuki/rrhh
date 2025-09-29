@@ -15,8 +15,11 @@
         $id_cargo = $row["id_cargo"];
     }
 
-    if($id_cargo == 8 || $id_cargo == 5 || $_SESSION['cargo'] == 6){
+    $opcion_cambio = "";
+
+    if($id_cargo == 5 || $_SESSION['cargo'] == 6){
         $sql="SELECT * FROM v_permiso";
+        $opcion_cambio = "onclick='actualizar($id_permiso)'";
     }
     else{
         $sql="SELECT * FROM v_permiso WHERE id_usuario = $id_usuario";
@@ -35,7 +38,7 @@
 <div class="row border-bottom bd-lightGray m-3">
     <div class="cell-md-4 d-flex flex-align-center">
         <?php //if($logo ==""){ ?>
-        <h3 class="dashboard-section-title  text-center text-left-md w-100">Semper CP <small>Version 1.0</small></h3>
+        <h3 class="dashboard-section-title  text-center text-left-md w-100">HITALENT <small>Version 1.0</small></h3>
         <?php //}else{ ?>
         <!--<img src="<?php echo $logo;?>" width="300" height="80"/>-->
         <?php //} ?>
@@ -111,7 +114,7 @@
         <td><?php echo $row["tipo_permiso"];?></td>
         <td><?php echo $row["observaciones"];?></td>
         <td><?php echo $row["fecha_registro"];?></td>
-        <td class="<?php echo $color;?>"><a href="#" onclick="actualizar(<?php echo $id_permiso?>)" ><?php echo $estado;?></a></td>
+        <td class="<?php echo $color;?>"><a href="#" <?php echo $opcion_cambio; ?> ><?php echo $estado;?></a></td>
         <td><?php echo $row["usuario_aprobador"];?></td>
     </tr>
     <?php 

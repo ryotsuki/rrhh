@@ -113,7 +113,7 @@
 <div class="row border-bottom bd-lightGray m-3">
     <div class="cell-md-4 d-flex flex-align-center">
         <?php //if($logo ==""){ ?>
-        <h3 class="dashboard-section-title  text-center text-left-md w-100">Semper CP <small>Version 1.0</small></h3>
+        <h3 class="dashboard-section-title  text-center text-left-md w-100">HITALENT <small>Version 1.0</small></h3>
         <?php //}else{ ?>
         <!--<img src="<?php echo $logo;?>" width="300" height="80"/>-->
         <?php //} ?>
