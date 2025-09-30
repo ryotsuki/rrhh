@@ -1,11 +1,12 @@
-**Pandora** - is a Responsive and Clean Admin Dashboard template. 
-This template created with **Metro 4** with uses native classes, elements, and components. 
-The template contains different types of reusable and professional responsive components with different variations. 
+**HITALENT** es un sistema para gestión automatiazada de Talento Humano para cualquier empresa.
+Se puede manejar:
+- Elaboración, gestión y aprobación de permisos.
+- Elaboración, gestión y aprobación de certificados laborales.
+- Consulta de roles/recibos de pago.
+- Elaboración, gestión y aprobación de vacaciones (módulo en desarrollo).
 
-**Pandora** comes with a mega collection of features which can make admin dashboard of any projects like Small to Medium 
-and Large sizes of projects including Personal projects, eCommerce, CRM, ERP, SaaS, PaaS, CMS, Back office 
-and Accounting Software backend etc. The Multipurpose feature of the dashboard template will allow integrating 
-for different types of business projects. 
-
-**Pandora** offers a creative and easy way to develop admin 
-backend for your next exciting projects.
+Tecnologías usadas:
+- php 7.x
+- MariaDB 12.x
+- JS y Jquery
+- Apache
