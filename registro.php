@@ -161,6 +161,7 @@ $login_button = '<div class="form-group">
             //    cls: "alert"
             //});
             //return;
+            alert("Registro");
             window.location.href = "http://m1.sempersa.com:8080/registro";
         }
     </script>
@@ -198,8 +199,6 @@ $login_button = '<div class="form-group">
             </div>
             <div class="form-group d-flex flex-align-center flex-justify-between">
                 <a href="#" onclick="login()"><button class="button primary">Entrar</button></a>
-                <a href="#" onclick="registro()"><button class="button success">Registrarse</button></a>
-            </div>
             <!--<div class="text-center m-4">- O -</div>-->
             <?php
             if($login_button == '')
@@ -222,6 +221,8 @@ $login_button = '<div class="form-group">
             }
             ?>
         </form>
+        <a href="#" onclick="registro()"><button class="button success">Registrarse</button></a>
+        </div>
     </div>
 
 

@@ -12,14 +12,14 @@
     $consulta = "SELECT id_cargo FROM usuario WHERE id_usuario = $id_usuario";
     $res2 = $conn->query($consulta);
     while($row=mysqli_fetch_array($res2)) {
-        $id_cargo = $row["id_cargo"];
+        $id_cargo = $row["id_cargo"]; 
     }
 
     $opcion_cambio = "";
 
-    if($id_cargo == 5 || $_SESSION['cargo'] == 6){
+    if($_SESSION['cargo'] == 5 || $_SESSION['cargo'] == 6){
         $sql="SELECT * FROM v_certificado";
-        $opcion_cambio = "onclick='actualizar($id_certificado)'";
+        //$opcion_cambio = "onclick='actualizar($id_certificado)'";
     }
     else{
         $sql="SELECT * FROM v_certificado WHERE id_usuario = $id_usuario";
@@ -86,9 +86,11 @@
             $id_certificado = 0;
             $id_certificado = $row["id_certificado"];
             $color = "";
+            $imprimir = "#reporte_certificados";
             $estado = $row["descripcion_estado_solicitud"];
             if($estado == "APROBADA"){
                 $color = "fg-blue";
+                $imprimir = "datos/certificado_pdf?id_certificado=".$row['id_certificado'];
             }
             if($estado == "INGRESADA"){
                 $color = "fg-warning";
@@ -96,9 +98,17 @@
             if($estado == "DENEGADA"){
                 $color = "fg-red";
             }
+
+            if($_SESSION['cargo']  == 5 || $_SESSION['cargo'] == 6){
+                $opcion_cambio = "onclick='actualizar($id_certificado)'";
+            }
+            else{
+                $opcion_cambio = "";
+            }
+
     ?>
     <tr>
-        <td><a href="datos/certificado_pdf?id_certificado=<?php echo $row["id_certificado"]?>" target="_blank"><?php echo $row["id_certificado"];?></a></td>
+        <td><a href="<?php echo $imprimir;?>" target="_blank"><?php echo $row["id_certificado"];?></a></td>
         <td><?php echo $row["nombre_usuario"];?></td>
         <td><?php echo $row["cedula_usuario"];?></td>
         <td><?php echo $row["descripcion_cargo"];?></td>

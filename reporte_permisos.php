@@ -17,9 +17,9 @@
 
     $opcion_cambio = "";
 
-    if($id_cargo == 5 || $_SESSION['cargo'] == 6){
+    if($id_cargo == 5 || $_SESSION['cargo'] == 6){ 
         $sql="SELECT * FROM v_permiso";
-        $opcion_cambio = "onclick='actualizar($id_permiso)'";
+        //$opcion_cambio = "onclick='actualizar($id_permiso)'";
     }
     else{
         $sql="SELECT * FROM v_permiso WHERE id_usuario = $id_usuario";
@@ -90,9 +90,11 @@
             $id_permiso = 0;
             $id_permiso = $row["id_permiso"];
             $color = "";
+            $imprimir = "#reporte_permisos";
             $estado = $row["descripcion_estado_solicitud"];
             if($estado == "APROBADA"){
                 $color = "fg-blue";
+                $imprimir = "datos/permiso_pdf?id_permiso=".$row['id_permiso'];
             }
             if($estado == "INGRESADA"){
                 $color = "fg-warning";
@@ -100,9 +102,12 @@
             if($estado == "DENEGADA"){
                 $color = "fg-red";
             }
+            if($id_cargo == 5 || $_SESSION['cargo'] == 6){ 
+                $opcion_cambio = "onclick='actualizar($id_permiso)'";
+            }
     ?>
     <tr>
-        <td><a href="datos/permiso_pdf?id_permiso=<?php echo $row["id_permiso"]?>" target="_blank"><?php echo $row["id_permiso"];?></a></td>
+        <td><a href="<?php echo $imprimir;?>" target="_blank"><?php echo $row["id_permiso"];?></a></td>
         <td><?php echo $row["nombre_usuario"];?></td>
         <td><?php echo $row["cedula_usuario"];?></td>
         <td><?php echo $row["descripcion_cargo"];?></td>

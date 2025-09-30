@@ -10,12 +10,14 @@ $id_usuario			= $_POST['id_usuario'];
 $id_permiso			= $_POST['id_permiso'];
 $id_estado          = $_POST['id_estado'];
 $solicitud          = "";
+$texto              = "";
 
 if($id_estado==2){
     $solicitud = "EN REVISION";
 }
 if($id_estado==3){
     $solicitud = "APROBADA";
+    $texto = "Por favor, ingrese a http://m1.sempersa.com:8080/rrhh/login para descargar su permiso.";
 }
 if($id_estado==4){
     $solicitud = "DENEGADA";

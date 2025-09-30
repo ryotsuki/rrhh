@@ -44,13 +44,14 @@
         $mail->setFrom('talentohumanosemper@gmail.com', 'Talento Humano Semper');
         $mail->addAddress($correo, $nombre);     //Add a recipient
         $mail->addBCC('talentohumanosemper@gmail.com');
-        $mail->addBCC('joboa@sempersa.com');
+        $mail->addBCC('jnoboa@sempersa.com');
+        $mail->addBCC('sistemas@sempersa.com');
         //$mail->addBCC('talentohumano@hicontab.com');
         $mail->isHTML(true);                                  //Set email format to HTML
 
         $html = '
         <div>
-        Estimado '.$nombre.', tu solicitud de certificiado numero '.$id_permiso.' se encuentra INGRESADA.
+        Estimado '.$nombre.', tu solicitud de certificado laboral numero '.$id_permiso.' se encuentra INGRESADA.
         <br>Por favor, no responda. Este es un correo automatico.
 
         <br><br>
